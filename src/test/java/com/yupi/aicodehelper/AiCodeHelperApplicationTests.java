@@ -3,6 +3,7 @@ package com.yupi.aicodehelper;
 import com.yupi.service.AiCodeHelperService;
 import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.rag.content.retriever.ContentRetriever;
+import dev.langchain4j.service.Result;
 import dev.langchain4j.store.embedding.EmbeddingStore;
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class AiCodeHelperApplicationTests {
 
     @Resource
-    private AiCodeHelperService aiCodeHelper;
+    private AiCodeHelperService aiCodeHelperService;
 
     @Resource
     private EmbeddingStore<TextSegment> embeddingStore;
@@ -32,9 +33,9 @@ class AiCodeHelperApplicationTests {
 
     @Test
     void chat() {
-        String result = aiCodeHelper.chat("请介绍一下这个 AI 编程小助手项目用了哪些技术栈。");
-        System.out.println(result);
-        assertNotNull(result);
+        Result<String> result = aiCodeHelperService.chat("有哪些常见的计算机网络面试题？");
+        System.out.println(result.content());
+        System.out.println(result.sources());
     }
 
     /**
@@ -42,7 +43,7 @@ class AiCodeHelperApplicationTests {
      */
     @Test
     void simpleRagValidation() {
-        var query = dev.langchain4j.rag.query.Query.from("这个 AI 编程小助手项目用了哪些技术栈？");
+        var query = dev.langchain4j.rag.query.Query.from("怎么学习java？");
         var retrieved = contentRetriever.retrieve(query);
         System.out.println("RAG retrieved segments: " + retrieved);
         assertNotNull(retrieved);

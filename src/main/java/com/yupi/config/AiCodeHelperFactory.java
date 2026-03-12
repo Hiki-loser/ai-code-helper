@@ -1,6 +1,7 @@
 package com.yupi.config;
 
 import com.yupi.service.AiCodeHelperService;
+import com.yupi.tools.InterviewQuestionTool;
 import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatModel;
@@ -26,6 +27,7 @@ public class AiCodeHelperFactory {
         return MessageWindowChatMemory.withMaxMessages(10);
     }
 
+
     @Bean
     @Primary
     public AiCodeHelperService aiCodeHelperService(ChatMemory chatMemory) {
@@ -33,7 +35,8 @@ public class AiCodeHelperFactory {
         return AiServices.builder(AiCodeHelperService.class)
                 .chatModel(qwenChatModel)
                 .chatMemory(chatMemory)
-                .contentRetriever(contentRetriever)
+               // .contentRetriever(contentRetriever)
+                .tools(new InterviewQuestionTool())
                 .build();
     }
 }

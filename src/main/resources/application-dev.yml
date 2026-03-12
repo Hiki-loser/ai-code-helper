@@ -1,0 +1,8 @@
+logging:
+  level:
+    root: info
+    dev.langchain4j: debug
+    com.yupi: debug
+
+# Dev defaults go here.
+# Secrets MUST be placed in `application-local.yml` or environment variables.

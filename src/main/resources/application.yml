@@ -1,0 +1,35 @@
+server:
+  port: 8081
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: ai-code-helper
+  profiles:
+    active: dev
+  config:
+    import:
+      # Put secrets (API keys, passwords) here; keep it out of git
+      - optional:classpath:application-local.yml
+      - optional:file:./application-local.yml
+
+logging:
+  level:
+    root: info
+    dev.langchain4j: info
+    com.yupi: info
+
+langchain4j:
+  community:
+    dashscope:
+
+      # ChatModel
+      chat-model:
+        model-name: ${DASHSCOPE_CHAT_MODEL:qwen-plus}
+      # StreamingChatModel (for SSE / streaming output)
+      streaming-chat-model:
+        model-name: ${DASHSCOPE_STREAMING_CHAT_MODEL:${DASHSCOPE_CHAT_MODEL:qwen-plus}}
+      # EmbeddingModel (for RAG)
+      embedding-model:
+        model-name: ${DASHSCOPE_EMBEDDING_MODEL:text-embedding-v4}

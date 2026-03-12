@@ -21,9 +21,6 @@ class AiCodeHelperApplicationTests {
     private AiCodeHelperService aiCodeHelperService;
 
     @Resource
-    private EmbeddingStore<TextSegment> embeddingStore;
-
-    @Resource
     private ContentRetriever contentRetriever;
 
     @Test
@@ -33,7 +30,7 @@ class AiCodeHelperApplicationTests {
 
     @Test
     void chat() {
-        Result<String> result = aiCodeHelperService.chat("有哪些常见的计算机网络面试题？");
+        Result<String> result = aiCodeHelperService.chat("有哪些常见的java面试题？");
         System.out.println(result.content());
         System.out.println(result.sources());
     }
